@@ -14,18 +14,10 @@ function Navbar() {
     const [showDrop, setShowDrop] = useState(false);
     const dropShow = () => setShowDrop(!showDrop);
 
-    const [rackDropdown, setRackDropdown] = useState(false);
-
-    const [stockDrop, setStockDrop] = useState(false);
-    const stockDropDown = () => setStockDrop(!stockDrop)
-
     const toggleLogOut = () => {
         window.localStorage.clear();
         navigate('/');
     }
-    // if (!window.localStorage.getItem("isAdmin" || !window.localStorage.getItem("isPicker"))) {
-    //     navigate('/');
-    // }
 
     return (
         <>
@@ -106,17 +98,11 @@ function Navbar() {
                                         Rack
                                     </NavLink>
                                 </li>
-                                <li style={{ margin: '20px -10px' }}>
-                                    <button active className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ textDecoration: 'none', color: 'white' }} onClick={stockDropDown}>
+                                <li style={{ margin: '20px 0px' }}>
+                                    <NavLink active to="/StockDetails" style={{ textDecoration: 'none', color: 'white' }} onClick={handleClose}>
                                         <i className="fa fa-cubes" aria-hidden="true" style={{ color: 'white', fontSize: '20px' }}></i>&nbsp;&nbsp;&nbsp;
                                         Stock
-                                    </button>
-                                    <div className="dropdown">
-                                        <div className={`dropdown-menu ${stockDrop ? 'show' : ''}`} aria-labelledby="dropdownMenuButton" style={{ backgroundColor: '#FAF5E4' }}>
-                                            <NavLink active to="/StockDetails" className="dropdown-item" onClick={stockDropDown}>Item vs Category&Rack</NavLink>
-                                            <NavLink active to="/MappedStock" className="dropdown-item" onClick={stockDropDown}>Mapped Item</NavLink>
-                                        </div>
-                                    </div>
+                                    </NavLink>
                                 </li>
                                 <li style={{ margin: '20px 0' }}>
                                     <NavLink active style={{ textDecoration: 'none', color: 'white' }} to="/SalesOrder" onClick={handleClose}>

@@ -14,6 +14,8 @@ function RegisterNewUser() {
   const validateRegister = async (e) => {
     e.preventDefault();
     alert('registered!')
+    JSON.stringify(window.localStorage.setItem('email', email))
+    JSON.stringify(window.localStorage.setItem('password', password))
     navigate('/');
 
   }

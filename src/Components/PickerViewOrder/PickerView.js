@@ -13,7 +13,7 @@ function PickerView() {
     var param = useParams();
     const [pickerSalesOrder, setPickerSalesOrder] = useState([]);
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => { setShow(false); }
     const handleShow = () => setShow(true);
     const [downLink, setDownloadLink] = useState('');
     const [loading, setLoading] = useState(true);
@@ -76,7 +76,6 @@ function PickerView() {
             var InvoiceLink = await axios.get(`http://integration-qa.gofrugalretail.com/Alert/whatsapp/exclusife/getInvoiceDetails?orderNo=${phone}`)
             setDownloadLink(InvoiceLink.data);
             setLoading(false)
-            toastsuccess()
             handleShow();
         } catch (error) {
             console.log(error);
@@ -85,7 +84,11 @@ function PickerView() {
     }
 
     const handlerouteChange = () => {
-        navigate('/PickerSalesOrder')
+        handleClose()
+        toastsuccess()
+        setTimeout(() => {
+            navigate('/PickerSalesOrder')
+        }, 1500)
     }
 
     return (

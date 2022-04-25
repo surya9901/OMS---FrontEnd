@@ -4,6 +4,8 @@ import env from '../setting';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader/Loader';
+import bar from '../DashBoard/bar.gif'
+import pie from '../DashBoard/pie.gif'
 
 function DashBoard() {
 
@@ -48,50 +50,28 @@ function DashBoard() {
             <Navbar />
             {
                 loader ? <Loader /> : <div className='container'>
-                    <div className='title mt-3 mb-3'>
-                        <h6>Dashboard:</h6>
+                    <div className='title mt-2 mb-3'>
+                        <h5>Dashboard:</h5>
                         <hr />
                     </div>
-                    <div className='content'>
-                            <div class="row row-cols-1 row-cols-md-3 g-4">
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a short card.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className='content text-center mt-2 mb-4'>
+                        <i className="fa fa-tools" style={{ fontSize: '60px', color: 'red' }}></i>
+                        <div class="alert alert-warning mt-3 mb-4" role="alert">
+                            Under Construction!
                         </div>
                     </div>
+                    <div className='row'>
+                        <div className='col-lg-6 mb-3'>
+                            <img src={bar} alt='bar' style={{ width: '-webkit-fill-available' }} />
+                        </div>
+                        <div className='col-lg-6'>
+                            <img src={pie} alt='pie' style={{ width: '-webkit-fill-available' }} />
+                        </div>
+                    </div>
+                </div>
             }
-                </>
+        </>
     )
 }
 
-            export default DashBoard
+export default DashBoard

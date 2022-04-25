@@ -15,7 +15,6 @@ function SalesOrder() {
   const [salesOrder, setSalesOrder] = useState([]);
   const [seperateLoad, setSeperateLoad] = useState([]);
   const [pickerList, setPickerList] = useState([]);
-  const [searchValue, setSearchValue] = useState('')
 
   const navigate = useNavigate();
   let fetchData = async () => {
@@ -86,10 +85,6 @@ function SalesOrder() {
     }
   }
 
-  const clearSearch = () => {
-    setSearchValue('')
-  }
-
   return (
     <>
       <Toastoptions />
@@ -98,18 +93,10 @@ function SalesOrder() {
         loading ? <Loader /> :
           <div className='container mb-3'>
             <div className='mt-3' style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <h5 className='mt-2' style={{ textDecoration: 'underline' }}>Pending Sales Order:</h5>
               <button className='btn' onClick={fetchData}>
                 <i className="fa fa-redo"></i>
               </button>
-              <h5 className='mt-2' style={{ textDecoration: 'underline' }}>Pending Sales Order:</h5>
-              <div className='col-lg-2'>
-                <div className="input-group input-group-sm">
-                  <input type="text" class="form-control" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search Order" aria-label="Search Order" aria-describedby="basic-addon2" />
-                  <button className='btn' onClick={clearSearch}>
-                    <i className='fa fa-times'></i>
-                  </button>
-                </div>
-              </div>
             </div>
             <hr />
             <div className='row'>

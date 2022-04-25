@@ -37,10 +37,11 @@ function RackCategory() {
 
     return (
         <>
+            <Toastoptions />
+            <Navbar />
             {
                 loader ? <Loader /> : <>
-                    <Toastoptions />
-                    <Navbar />
+
                     <div className='container'>
                         <h5 className='mt-3 mb-2' style={{ textDecoration: 'underline' }}>Category:</h5>
                         <hr />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 import Loader from '../Loader/Loader';
-import { Modal, Button } from 'react-bootstrap'
+import { Modal} from 'react-bootstrap'
 import axios from 'axios';
 import env from '../setting'
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +52,10 @@ function StockDetails() {
     setCatDisable(false)
     window.localStorage.removeItem('catId', catId);
   };
-  const handleModalShow = () => setShow(true);
+  const handleModalShow = (itemSkuCode) => {
+    JSON.stringify(window.localStorage.setItem('itemSkuCode', itemSkuCode));
+    setShow(true);
+  }
 
   const [catDisable, setCatDisable] = useState(false);
   const disableCatSelection = () => {
@@ -77,8 +80,20 @@ function StockDetails() {
     setLoader(false)
   }
 
-  const handlesubmit = (data) => {
-    console.log(data)
+  const handlesubmit = async (data) => {
+    try {
+      var skuCode = JSON.parse(window.localStorage.getItem('itemSkuCode'));
+      await axios.post(`${env.api}/save/itemrackMap?itemSkuCode=${skuCode}&categoryRackMapId=${data.categoryRackMapId}`, {}, {
+        headers: {
+          'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
+        }
+      })
+      handleModalClose()
+      fetchData();
+    } catch (error) {
+      console.log(error);
+      navigate('/Crash')
+    }
   }
 
   return (
@@ -115,14 +130,14 @@ function StockDetails() {
                         <tr>
                           <th scope="row" key={data.itemSkuCode}>{index + 1}</th>
                           <td>{data.itemName}</td>
-                          <td>{data.category === null ? 'UnOccupied' : 'Occupied'}</td>
-                          <td>{data.categoryRackMap === null ? 'UnOccupied' : 'Occupied'}</td>
+                          <td>{data.category === null ? 'Not MApped' : data.category.catName}</td>
+                          <td>{data.categoryRackMap === null ? 'Not Mapped' : data.categoryRackMap.rackMaster.rackName}</td>
                           <td>{data.stockQty}</td>
                           <td>{formatDate(data.expDate)}</td>
                           <td>
                             <div>
-                              <button className='btn' style={{ backgroundColor: '#EDE6DB', color: '#1D5C63' }} onClick={handleModalShow}>
-                                Add Category
+                              <button className='btn' style={{ backgroundColor: '#EDE6DB', color: '#1D5C63' }} onClick={() => handleModalShow(data.itemSkuCode)}>
+                                Map
                               </button>
                             </div>
                           </td>
@@ -177,15 +192,17 @@ function StockDetails() {
                       <div className='row'>
                         {
                           rackDetails.map(data => {
+                            console.log(data);
                             return (
-                              <button className='btn col-11 col-lg-2 text-center' disabled={data.status ? true : false} onClick={() => handlesubmit(data)}>
-                                <div className="card bg-light mb-3">
-                                  <div className="card-header">{data.rackName}</div>
-                                  <div className="card-body">
-                                    <h5 className="card-title">{data.status.toString() === 'true' ? 'Occupied' : 'Not Occupied'}</h5>
-                                  </div>
-                                </div>
-                              </button>
+                              <>
+                                {
+                                  data.status ? <button className='btn col-3 col-lg-2 text-center' onClick={() => handlesubmit(data)}>
+                                    <div className="card bg-light mb-3">
+                                      <div className="card-header">{data.rackName}</div>
+                                    </div>
+                                  </button> : ''
+                                }
+                              </>
                             )
                           })
                         }

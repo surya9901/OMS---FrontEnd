@@ -18,7 +18,6 @@ function PickerScreenSaleOrder() {
                     'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
                 }
             })
-            console.log(data);
             window.localStorage.setItem('pickerSalesOrders', JSON.stringify(data.data))
             if (data.data.length > 0) {
                 setPickerAssignedSO([...JSON.parse(window.localStorage.getItem('pickerSalesOrders'))]);
@@ -80,7 +79,6 @@ function PickerScreenSaleOrder() {
                                             })
                                         }
                                     </>
-
                                     }
                                 </div>
                             </div>

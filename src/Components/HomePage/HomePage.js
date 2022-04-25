@@ -12,7 +12,7 @@ function HomePage() {
 
     var validateLogin = (e) => {
         e.preventDefault();
-        if ('admin@gft.com' === email.toString() && '12345' === password.toString()) {
+        if ('admin@gft.com' === email.toString() && '12345' === password.toString() || JSON.parse(window.localStorage.getItem('email') === email.toString()) && JSON.parse(window.localStorage.getItem('password') === password.toString())) {
             window.localStorage.setItem('isAdmin', true)
             window.localStorage.setItem('email', email)
             setEmail('');

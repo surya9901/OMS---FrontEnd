@@ -28,7 +28,7 @@ function PickerScreenSaleOrder() {
             setLoading(false);
         } catch (error) {
             console.log(error);
-            // navigate('/Crash')
+            navigate('/Crash')
         }
     }
     const handleViewOrder = (id, phone) => {

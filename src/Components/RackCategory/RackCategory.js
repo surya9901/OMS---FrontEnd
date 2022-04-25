@@ -3,17 +3,31 @@ import Navbar from '../Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import Toastoptions from '../ToastOptions';
+import axios from 'axios'
+import env from '../setting'
 
 function RackCategory() {
 
     const [category, setCategory] = useState([]);
     const [loader, setLoader] = useState(true)
-    useEffect(() => {
-        setCategory(JSON.parse([window.localStorage.getItem('CategoryData')]));
-        if (window.localStorage.getItem('CategoryData') === null) {
-            navigate('/Crash')
+
+    const fetchData = async () => {
+        try {
+            let rackCategory = await axios.get(`${env.api}/get/categorydtl`, {
+                headers: {
+                    'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
+                }
+            })
+            window.localStorage.setItem('CategoryData', JSON.stringify(rackCategory.data));
+            setCategory(JSON.parse([window.localStorage.getItem('CategoryData')]));
+            setLoader(false)
+        } catch (error) {
+            console.log(error);
+            navigate('/Crash');
         }
-        setLoader(false)
+    }
+    useEffect(() => {
+        fetchData()
     }, []);
 
     var navigate = useNavigate();

@@ -4,16 +4,43 @@ import Loader from '../Loader/Loader';
 import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios';
 import env from '../setting'
+import { useNavigate } from 'react-router-dom';
 
 function StockDetails() {
-
+  const navigate = useNavigate();
   const [ItemDetails, setItemDetails] = useState([]);
   const [rackCategory, setRackCategory] = useState([]);
   const [rackDetails, setRackDetails] = useState([])
   const [loader, setLoader] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      setLoader(true)
+      //****Unmapped Item details****
+      let ItemDetails = await axios.get(`${env.api}/getItems`, {
+        headers: {
+          'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
+        }
+      })
+      window.localStorage.setItem('ItemData', JSON.stringify(ItemDetails.data));
+      setItemDetails(JSON.parse([window.localStorage.getItem('ItemData')]));
+      // ****All rack based on Category****
+      let RackMappedData = await axios.get(`${env.api}/get/categoryRackMap`, {
+        headers: {
+          'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
+        }
+      })
+      window.localStorage.setItem('MappedRackData', JSON.stringify(RackMappedData.data));
+      setRackCategory(JSON.parse([window.localStorage.getItem('MappedRackData')]));
+      setLoader(false)
+    } catch (error) {
+      console.log(error);
+      navigate('/Crash');
+    }
+  }
+
   useEffect(() => {
-    setItemDetails(JSON.parse([window.localStorage.getItem('ItemData')]));
-    setRackCategory(JSON.parse([window.localStorage.getItem('MappedRackData')]));
+    fetchData();
     setLoader(false)
   }, []);
 
@@ -50,15 +77,15 @@ function StockDetails() {
     setLoader(false)
   }
 
-  const handlesubmit = (data) =>{
+  const handlesubmit = (data) => {
     console.log(data)
   }
 
   return (
     <>
+      <Navbar />
       {
         loader ? <Loader /> : <>
-          <Navbar />
           <div className='container mt-3 mb-3'>
             <h6 style={{ textDecoration: 'underline' }}>Rack Details:</h6>
             <hr />

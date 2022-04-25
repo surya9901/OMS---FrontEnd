@@ -131,12 +131,6 @@ function Navbar() {
                                         Picker
                                     </NavLink>
                                 </li>
-                                <li style={{ margin: '20px 0' }}>
-                                    <NavLink active style={{ textDecoration: 'none', color: 'white' }} to="/Invoice" onClick={handleClose}>
-                                        <i className="far fa-file-alt" aria-hidden="true" style={{ color: 'white', fontSize: '22px', marginLeft: '3px' }}></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Invoice
-                                    </NavLink>
-                                </li>
                             </ul>
                     }
                 </Offcanvas.Body>

@@ -63,8 +63,7 @@ function PickerView() {
                 }
             })
             var phone = JSON.parse(window.localStorage.getItem('custPhone'))
-            var InvoiceLink = await axios.get(`http://integration-qa.gofrugalretail.com/Alert/whatsapp/exclusife/getInvoiceDetails?orderNo=${phone}}`)
-            console.log(InvoiceLink)
+            var InvoiceLink = await axios.get(`http://integration-qa.gofrugalretail.com/Alert/whatsapp/exclusife/getInvoiceDetails?orderNo=${phone}`)
             toastsuccess()
         } catch (error) {
             console.log(error);

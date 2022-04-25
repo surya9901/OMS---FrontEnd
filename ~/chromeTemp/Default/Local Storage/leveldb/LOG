@@ -1,0 +1,15 @@
+2022/04/25-02:53:58.178 f Reusing MANIFEST /home/gnanasurya/Hackathon/ware_house_managment_system/~/chromeTemp/Default/Local Storage/leveldb/MANIFEST-000001
+2022/04/25-02:53:58.180 f Recovering log #3
+2022/04/25-02:53:58.181 f Reusing old log /home/gnanasurya/Hackathon/ware_house_managment_system/~/chromeTemp/Default/Local Storage/leveldb/000003.log 
+2022/04/25-03:44:10.425 20 Level-0 table #5: started
+2022/04/25-03:44:10.430 20 Level-0 table #5: 17415 bytes OK
+2022/04/25-03:44:10.432 20 Delete type=0 #3
+2022/04/25-04:21:16.446 29 Level-0 table #7: started
+2022/04/25-04:21:16.450 29 Level-0 table #7: 13446 bytes OK
+2022/04/25-04:21:16.453 29 Delete type=0 #4
+2022/04/25-04:26:07.372 29 Level-0 table #9: started
+2022/04/25-04:26:07.375 29 Level-0 table #9: 14065 bytes OK
+2022/04/25-04:26:07.379 29 Delete type=0 #6
+2022/04/25-04:33:19.611 29 Level-0 table #11: started
+2022/04/25-04:33:19.615 29 Level-0 table #11: 14021 bytes OK
+2022/04/25-04:33:19.618 29 Delete type=0 #8

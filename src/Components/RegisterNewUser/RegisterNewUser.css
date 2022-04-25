@@ -1,0 +1,9 @@
+#RegisterContainer {
+    top: 10vh;
+    position: relative;
+}
+
+.registerClose_button {
+    display: flex;
+    justify-content: flex-end;
+}

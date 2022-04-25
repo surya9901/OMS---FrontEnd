@@ -15,7 +15,6 @@ function Navbar() {
     const dropShow = () => setShowDrop(!showDrop);
 
     const [rackDropdown, setRackDropdown] = useState(false);
-    const rackDropShow = () => setRackDropdown(!rackDropdown)
 
     const [stockDrop, setStockDrop] = useState(false);
     const stockDropDown = () => setStockDrop(!stockDrop)
@@ -24,6 +23,9 @@ function Navbar() {
         window.localStorage.clear();
         navigate('/');
     }
+    // if (!window.localStorage.getItem("isAdmin" || !window.localStorage.getItem("isPicker"))) {
+    //     navigate('/');
+    // }
 
     return (
         <>
@@ -98,17 +100,11 @@ function Navbar() {
                                         Dashboard
                                     </NavLink>
                                 </li>
-                                <li style={{ margin: '20px -10px' }}>
-                                    <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ textDecoration: 'none', color: 'white' }} onClick={rackDropShow}>
+                                <li style={{ margin: '20px 0px' }}>
+                                    <NavLink active style={{ textDecoration: 'none', color: 'white' }} to="/RackCategory" onClick={handleClose}>
                                         <i className="fa fa-th" aria-hidden="true" style={{ color: 'white', fontSize: '20px' }}></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         Rack
-                                    </button>
-                                    <div className="dropdown">
-                                        <div className={`dropdown-menu ${rackDropdown ? 'show' : ''}`} aria-labelledby="dropdownMenuButton" style={{ backgroundColor: '#FAF5E4' }}>
-                                            <NavLink active to="/RackCategory" className="dropdown-item" onClick={rackDropShow} >Category vs Rack</NavLink>
-                                            <NavLink active to="/MappedRack" className="dropdown-item" onClick={rackDropShow} >Mapped Rack</NavLink>
-                                        </div>
-                                    </div>
+                                    </NavLink>
                                 </li>
                                 <li style={{ margin: '20px -10px' }}>
                                     <button active className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ textDecoration: 'none', color: 'white' }} onClick={stockDropDown}>

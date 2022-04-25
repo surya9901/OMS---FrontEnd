@@ -18,14 +18,21 @@ function PickerScreenSaleOrder() {
                     'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
                 }
             })
+            console.log(data);
             window.localStorage.setItem('pickerSalesOrders', JSON.stringify(data.data))
-            setPickerAssignedSO([...JSON.parse(window.localStorage.getItem('pickerSalesOrders'))]);
+            if (data.data.length > 0) {
+                setPickerAssignedSO([...JSON.parse(window.localStorage.getItem('pickerSalesOrders'))]);
+            } else {
+                setPickerAssignedSO([])
+            }
             setLoading(false);
         } catch (error) {
             console.log(error);
+            // navigate('/Crash')
         }
     }
-    const handleViewOrder = (id) => {
+    const handleViewOrder = (id, phone) => {
+        JSON.stringify(window.localStorage.setItem('custPhone', phone))
         navigate(`/PickerSalesOrder/ViewOrder/${id}`)
     }
     useEffect(() => {
@@ -47,29 +54,33 @@ function PickerScreenSaleOrder() {
                         <div className="card">
                             <div className="card-body">
                                 <div className="card-deck">
-                                    {
-                                        pickerAssignedSO.map(data => {
-                                            var d = data.orderDate;
-                                            var date = d.substr(0, 10).split("-")
-                                            var time = d.substr(11, 20).split(":");
-                                            date = date[2] + "-" + date[1] + "-" + date[0];
-                                            time = time[0] + ":" + time[1] + ":" + time[2];
-                                            return (
-                                                <div className="card mb-3" onClick={() => handleViewOrder(data.salesOrderId)}>
-                                                    <div className="card-body">
-                                                        <p className="card-title" style={{ fontWeight: 'bold' }}>Order Number #{data.salesOrderId}</p>
-                                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                            <p className="card-text" style={{ fontSize: '12px' }}><i className='fa fa-envelope'></i>{data.shipEmail}</p>
-                                                            <p className="card-text" style={{ fontSize: '12px' }}><i className="fa fa-phone"></i>&nbsp;&nbsp;{data.shipPhone}</p>
-                                                        </div>
-                                                        <div className="card-text" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                            <p className="card-text" style={{ fontSize: '12px' }}><i className="fa fa-calendar"></i>&nbsp;&nbsp;{date}</p>
-                                                            <p className="card-text" style={{ fontSize: '12px' }}><i className="fa fa-clock"></i>&nbsp;&nbsp;{time}</p>
+                                    {!pickerAssignedSO.length > 0 ? <h6>No Data Found</h6> : <>
+                                        {
+                                            pickerAssignedSO.map(data => {
+                                                var d = data.orderDate;
+                                                var date = d.substr(0, 10).split("-")
+                                                var time = d.substr(11, 20).split(":");
+                                                date = date[2] + "-" + date[1] + "-" + date[0];
+                                                time = time[0] + ":" + time[1] + ":" + time[2];
+                                                return (
+                                                    <div className="card mb-3" onClick={() => handleViewOrder(data.salesOrderId, data.shipPhone)}>
+                                                        <div className="card-body">
+                                                            <p className="card-title" style={{ fontWeight: 'bold' }}>Order Number #{data.salesOrderId}</p>
+                                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                                <p className="card-text" style={{ fontSize: '12px' }}><i className='fa fa-envelope'></i>{data.shipEmail}</p>
+                                                                <p className="card-text" style={{ fontSize: '12px' }}><i className="fa fa-phone"></i>&nbsp;&nbsp;{data.shipPhone}</p>
+                                                            </div>
+                                                            <div className="card-text" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                                <p className="card-text" style={{ fontSize: '12px' }}><i className="fa fa-calendar"></i>&nbsp;&nbsp;{date}</p>
+                                                                <p className="card-text" style={{ fontSize: '12px' }}><i className="fa fa-clock"></i>&nbsp;&nbsp;{time}</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        })
+                                                )
+                                            })
+                                        }
+                                    </>
+
                                     }
                                 </div>
                             </div>

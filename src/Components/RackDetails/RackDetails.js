@@ -20,9 +20,9 @@ function RackDetails() {
     try {
       let data = await axios.get(`${env.api}/get/categoryRack?categoryId=${id}`, {
         headers: {
-            'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
+          'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
         }
-    })
+      })
       setRackDetails([...data.data.categoryRack])
       setLoader(false);
     } catch (error) {
@@ -44,9 +44,9 @@ function RackDetails() {
       ]
       await axios.post(`${env.api}/map/categoryRack`, mappedData, {
         headers: {
-            'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
+          'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
         }
-    })
+      })
       toastsuccess();
       setTimeout(() => {
         navigate('/Dashboard')
@@ -68,10 +68,10 @@ function RackDetails() {
 
   return (
     <>
+      <Toastoptions />
+      <Navbar />
       {
-        loader ? <Loader /> : <>
-          <Toastoptions />
-          <Navbar />
+        loader ? <Loader /> :
           <div className='container'>
             <div className='mt-3 mb-2 p-2'>
               <div className='row'>
@@ -109,7 +109,6 @@ function RackDetails() {
               </div>
             </div>
           </div>
-        </>
       }
     </>
   )

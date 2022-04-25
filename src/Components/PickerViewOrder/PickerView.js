@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import env from '../setting'
+import { toastsuccess } from '../utils';
+import Toastoptions from '../ToastOptions';
 
 function PickerView() {
-
+    const navigate = useNavigate();
     var param = useParams();
     const [pickerSalesOrder, setPickerSalesOrder] = useState([]);
 
@@ -49,24 +51,31 @@ function PickerView() {
                 delete data.category;
                 delete data.status;
             }))
-            let postData = [{
-                'salesOrderId': param.id,
+            let postData = {
+                'salesOrderId': parseInt(param.id),
                 itemDetailList: data
 
-            }]
-            await axios.post(`${env.api}/save-invoice?pickerPhone=1234`, postData, {
+            }
+            let email = JSON.parse(window.localStorage.getItem('email'))
+            await axios.post(`${env.api}/save-invoice?pickerPhone=${email}`, postData, {
                 headers: {
                     'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
                 }
             })
+            var phone = JSON.parse(window.localStorage.getItem('custPhone'))
+            var InvoiceLink = await axios.get(`http://integration-qa.gofrugalretail.com/Alert/whatsapp/exclusife/getInvoiceDetails?orderNo=${phone}}`)
+            console.log(InvoiceLink)
+            toastsuccess()
         } catch (error) {
             console.log(error);
+            navigate('/Crash')
         }
 
     }
 
     return (
         <>
+            <Toastoptions />
             <Navbar />
             <div className='container mb-3'>
                 <div className="card mt-3">
@@ -86,19 +95,21 @@ function PickerView() {
                                                         {data.status ? '' : <p style={{ color: 'red' }}>No required Quantity</p>}
                                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                                             <p style={{ fontSize: '12px', fontWeight: 'bold' }}>Item {index + 1}</p>
-                                                            <input type='checkbox' onClick={(e) => handleCheck(e, data)} disabled={data.status ? false : true} />
+                                                            <input type='checkbox' onClick={(e) => handleCheck(e, data)} disabled={!data.status ? true : false} />
                                                         </div>
                                                         <p style={{ fontSize: '12px' }}>Item Sku Code: {data.itemSkuCode}</p>
                                                         <p style={{ fontSize: '12px' }}>Item Name: {data.itemName}</p>
+                                                        <p style={{ fontSize: '12px' }}>Category: {data.category}</p>
                                                         <div>
-                                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                                <p style={{ fontSize: '12px' }}>Item Stock: {data.itemStock}</p>
-                                                                <p style={{ fontSize: '12px' }}>Quatity: {data.quantity}</p>
-                                                            </div>
                                                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                                                 <p style={{ fontSize: '12px' }}>Rack Name: {data.rackName}</p>
                                                                 <p style={{ fontSize: '12px' }}>Row No: {data.rowNo}</p>
                                                             </div>
+                                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                                <p style={{ fontSize: '12px' }}>Item Stock: {data.itemStock}</p>
+                                                                <p style={{ fontSize: '12px' }}>Quatity: {data.quantity}</p>
+                                                            </div>
+
                                                         </div>
                                                         <hr />
                                                     </div>

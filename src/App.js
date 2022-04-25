@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import './App.css';
 import DashBoard from './Components/DashBoard/DashBoard';
 import HomePage from './Components/HomePage/HomePage';
@@ -15,7 +15,6 @@ import RackCategory from './Components/RackCategory/RackCategory';
 import MappedRack_Item from './Components/MappedRack_Item/MappedRack_Item';
 import PickerScreenSaleOrder from './Components/PickersScreenSalesOrder/PickerScreenSaleOrder';
 import PickerView from './Components/PickerViewOrder/PickerView';
-import env from './Components/setting';
 
 
 function App() {

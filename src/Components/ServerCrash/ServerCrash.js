@@ -1,14 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import './ServerCrash.css';
 
 function ServerCrash() {
-
-    var navigate = useNavigate();
-    setTimeout(() => {
-        navigate('/Dashboard');
-    }, 5000)
-
     return (
         <div className='container' id='crashContainer'>
             <div>

@@ -41,13 +41,17 @@ function StockDetails() {
   const rackDetailsData = async () => {
     setLoader(true)
     let catId = window.localStorage.getItem('catId')
-    let data = await axios.get(`${env.api}/get/categoryRack?categoryId=${catId}`,{
+    let data = await axios.get(`${env.api}/get/categoryRack?categoryId=${catId}`, {
       headers: {
-          'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
+        'X-Auth-Token': "Z29mcnVnYWxoYWNrYXRob24="
       }
-  })
+    })
     setRackDetails([...data.data.categoryRack])
     setLoader(false)
+  }
+
+  const handlesubmit = (data) =>{
+    console.log(data)
   }
 
   return (
@@ -134,7 +138,7 @@ function StockDetails() {
               </select>
               <div class="input-group-append">
                 {
-                  catDisable ? <button className="input-group-text" htmlFor="inputGroupSelect02" onClick={enableCatSelection}><i className="fa fa-edit" style={{ fontSize: '25px' }}></i></button> : <button class="input-group-text" htmlFor="inputGroupSelect02" onClick={disableCatSelection}>Save</button>
+                  catDisable ? <button className="input-group-text" htmlFor="inputGroupSelect02" onClick={enableCatSelection}><i className="fa fa-times" style={{ fontSize: '25px' }}></i></button> : <button class="input-group-text" htmlFor="inputGroupSelect02" onClick={disableCatSelection}>Save</button>
                 }
               </div>
             </div>
@@ -147,7 +151,7 @@ function StockDetails() {
                         {
                           rackDetails.map(data => {
                             return (
-                              <button className='btn col-11 col-lg-2 text-center' disabled={data.status ? true : false} onClick={()=>console.log('hi')}>
+                              <button className='btn col-11 col-lg-2 text-center' disabled={data.status ? true : false} onClick={() => handlesubmit(data)}>
                                 <div className="card bg-light mb-3">
                                   <div className="card-header">{data.rackName}</div>
                                   <div className="card-body">
@@ -166,12 +170,6 @@ function StockDetails() {
             }
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={handleModalClose}>
-            Close
-          </Button>
-          <Button variant="success">Submit</Button>
-        </Modal.Footer>
       </Modal>
     </>
   )
